@@ -8,6 +8,6 @@
 
 here is detect result :
 
-![](result.jpg)
+![](./data/result.jpg)
 
 Clearly, if we use dlib face to detect face, a lot of face will be ignore
