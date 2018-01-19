@@ -19,7 +19,7 @@ def get_bbox(face_shape, bound):
     else:
         return None
 def demo():
-    img = cv2.imread("2.jpg")
+    img = cv2.imread("./data/2.jpg")
     print img.shape,img.shape[0],img.shape[1]
     # for some reason some too big picture may could not find face,so the shape will devided
     img = cv2.resize(img,(img.shape[1]/4,img.shape[0]/4))
@@ -37,7 +37,7 @@ def demo():
     cv2.waitKey(0)
 
 def video_detect():
-    cap = cv2.VideoCapture("./data/uni.mp4")
+    cap = cv2.VideoCapture(0)
     count = 0
     while 1:
         ret, img = cap.read()
@@ -45,9 +45,8 @@ def video_detect():
             # predict face shape and face area
             shape, rects = predictor(img)
             # draw point cloud
-            shape = np.array(shape).reshape((-1, 2))
-            if len(shape)!=0:
-                bbox = get_bbox(shape, img.shape[:2])
+            draw_shapes(img, shape)
+            # shape = np.array(shape).reshape((-1, 2))
             if rects is not None:
                 for b in rects:
                     chip = img[int(b[1]):int(b[3]), int(b[0]):int(b[2])]
@@ -91,4 +90,4 @@ def demo_saveList():
             cv2.imshow("img",img)
             # cv2.waitKey(0)
 if __name__ == "__main__":
-    demo_saveList()
+    video_detect()
